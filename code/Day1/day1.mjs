@@ -18,3 +18,5 @@ function calculateSum(str) {
   const total = lineValues.reduce((acc, curr) => acc + curr, 0)
   return total
 }
+
+console.log(calculateSum(['slkhgf14']))
