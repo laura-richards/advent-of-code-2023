@@ -35,3 +35,45 @@ describe('CalculateSum works out the total', () => {
     expect(sampleValue).toBe(142)
   })
 })
+
+const sample5 = 'two1nine'
+const sample6 = 'eightwothree'
+const sample7 = 'abcone2threexyz'
+const sample8 = 'xtwone3four'
+const sample9 = '4nineeightseven2'
+const sample10 = 'zoneight234'
+const sample11 = '7pqrstsixteen'
+
+const fullSample2 = `${sample5}
+${sample6}
+${sample7}
+${sample8}
+${sample9}
+${sample10}
+${sample11}`
+
+describe('Correctly calculates day 1 part two sample lines', () => {
+  test('calculateValue works out value of Sample5', () => {
+    const sample1Value = calculateValue(sample5)
+    expect(sample1Value).toBe(29)
+  })
+  test('calculateValue works out value of Sample6', () => {
+    const sample1Value = calculateValue(sample6)
+    expect(sample1Value).toBe(83)
+  })
+  test('calculateValue works out value of Sample7', () => {
+    const sample1Value = calculateValue(sample7)
+    expect(sample1Value).toBe(13)
+  })
+  test('calculateValue works out value of Sample8', () => {
+    const sample1Value = calculateValue(sample8)
+    expect(sample1Value).toBe(24)
+  })
+})
+
+describe('CalculateSum works out the second total', () => {
+  test('Use calculateSum to work out sum', () => {
+    const sampleValue = calculateSum(fullSample2)
+    expect(sampleValue).toBe(281)
+  })
+})
