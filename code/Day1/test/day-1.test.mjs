@@ -15,15 +15,15 @@ describe('Correctly calculates day 1 part one sample lines', () => {
     const sample1Value = calculateValue(sample1)
     expect(sample1Value).toBe(12)
   })
-  test('calculateValue works out value of Sample1', () => {
+  test('calculateValue works out value of Sample2', () => {
     const sample1Value = calculateValue(sample2)
     expect(sample1Value).toBe(38)
   })
-  test('calculateValue works out value of Sample1', () => {
+  test('calculateValue works out value of Sample3', () => {
     const sample1Value = calculateValue(sample3)
     expect(sample1Value).toBe(15)
   })
-  test('calculateValue works out value of Sample1', () => {
+  test('calculateValue works out value of Sample4', () => {
     const sample1Value = calculateValue(sample4)
     expect(sample1Value).toBe(77)
   })
