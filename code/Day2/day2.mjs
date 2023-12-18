@@ -1,4 +1,4 @@
-export { calculateGame, calculateTotal, calculatePower, calculatePowers }
+export { calculateGame, calculateTotal }
 import { readFileAsync } from '../../fileUtils.mjs'
 
 function calculateGame(game) {
@@ -53,14 +53,6 @@ function calculateGame(game) {
 }
 
 function calculateTotal(game) {
-  const splitGames = game.split('\n')
-  const gameValues = []
-  splitGames.map((game) => gameValues.push(calculateGame(game)))
-  const total = gameValues.reduce((acc, curr) => acc + curr, 0)
-  return total
-}
-
-function calculatePower(game) {
   const splitGames = game.split('\n')
   let total = 0
   splitGames.map((game) => (total += calculateGame(game)))
