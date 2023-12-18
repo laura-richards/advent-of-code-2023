@@ -1,5 +1,10 @@
 import { describe, test, expect } from 'vitest'
-import { calculateGame, calculateTotal } from '../day2.mjs'
+import {
+  calculateGame,
+  calculateTotal,
+  calculatePowers,
+  calculatePower,
+} from '../day2.mjs'
 
 const game1 = 'Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green'
 const game2 = 'Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue'
@@ -41,26 +46,26 @@ describe('CalculateSum works out the total for part 1', () => {
 
 describe('Correctly calculates day 2 part 2 game lines', () => {
   test('calculateValue works out value of Game1', () => {
-    const game1Value = calculatePower(game1)
+    const game1Value = calculatePowers(game1)
     expect(game1Value).toBe(48)
   })
   test('calculateValue works out value of Game2', () => {
-    const game1Value = calculatePower(game2)
+    const game1Value = calculatePowers(game2)
     expect(game1Value).toBe(12)
   })
   test('calculateValue works out value of Game3', () => {
-    const game1Value = calculatePower(game3)
+    const game1Value = calculatePowers(game3)
     expect(game1Value).toBe(1560)
   })
   test('calculateValue works out value of Game4', () => {
-    const game1Value = calculatePower(game4)
+    const game1Value = calculatePowers(game4)
     expect(game1Value).toBe(630)
   })
 })
 
 describe('CalculateSum works out the total for part 2', () => {
   test('Use calculateSum to work out sum', () => {
-    const sampleValue = calculateTotal(fullSample)
+    const sampleValue = calculatePower(fullSample)
     expect(sampleValue).toBe(2286)
   })
 })
