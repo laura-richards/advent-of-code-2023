@@ -1,131 +1,127 @@
-export { findAnswer }
+export  { findAnswer }
 import { readFileAsync } from '../../fileUtils.mjs'
 
-//function to find and add the valid numbers in each line
-function getValidNumbers(line, lineIndex, separatedData) {
-  const lineArray = line.split('')
+
+function getValidNumbers(separatedData) {
+  const splitData = []
+  const gearIndexes = []
+  const numberArrays = []
   let lineIndexes = []
-  const finalLineArray = []
-  lineArray.map((char, i) => {
-    if (!isNaN(Number(char))) {
-      lineIndexes.push(i)
-      if (isNaN(lineArray[i + 1])) {
-        finalLineArray.push(lineIndexes)
-        lineIndexes = []
+  for (let i = 0; i < separatedData.length; i++) {
+    splitData.push(separatedData[i].split(''))
+  }
+  // console.log(splitData)
+  for (let i = 0; i < splitData.length; i++) {
+    for (let j = 0; j < splitData[i].length; j++) {
+      
+      if (!isNaN(Number(splitData[i][j]))) {
+        lineIndexes.push([i, j])
+        // console.log(lineIndexes)
+        if (isNaN(splitData[i][j + 1])) {
+          numberArrays.push(lineIndexes)
+          lineIndexes = []
+        }
       }
     }
-  })
-
-  const priorLine = separatedData[lineIndex - 1]
-  const nextLine = separatedData[lineIndex + 1]
-  const validIndexes = []
-  finalLineArray.map((array) => {
-    array.map((index) => {
-      if (validIndexes.includes(array)) {
+  }
+  let gears =[]
+  numberArrays.map((array, index) => {
+    array.map((arr) => {
+      if (gears.find((gear) => gear.array === index)) {
         return
       }
-      if (lineIndex !== 0) {
-        if (validIndexes.includes(array)) {
+      if (arr[0] !== 0) {
+        if (separatedData[arr[0] - 1][arr[1] - 1] === '*') {
+          gears.push({ array: index, gear: [arr[0] - 1, arr[1]-1] })
           return
         }
-        if (
-          priorLine[index - 1] &&
-          priorLine[index - 1] !== '.' &&
-          isNaN(Number(priorLine[index - 1]))
-        ) {
-          console.log(priorLine[index - 1], index, 1)
-          validIndexes.push(array)
+        if (separatedData[arr[0] - 1][arr[1]] === '*') {
+          gears.push({ array: index, gear: [arr[0] - 1, arr[1]] })
           return
         }
-        if (
-          priorLine[index] &&
-          priorLine[index] !== '.' &&
-          isNaN(Number(priorLine[index]))
-        ) {
-          console.log(priorLine[index], index, 2)
-          validIndexes.push(array)
-          return
-        }
-        if (
-          priorLine[index + 1] &&
-          priorLine[index + 1] !== '.' &&
-          isNaN(Number(priorLine[index + 1]))
-        ) {
-          console.log(priorLine[index + 1], index)
-          validIndexes.push(array)
+        if (separatedData[arr[0] - 1][arr[1] + 1] === '*') {
+          gears.push({ array: index, gear: [arr[0] - 1, arr[1] + 1] })
           return
         }
       }
-      if (nextLine !== undefined) {
-        if (
-          nextLine[index - 1] &&
-          nextLine[index - 1] !== '.' &&
-          isNaN(Number(nextLine[index - 1]))
-        ) {
-          console.log(nextLine[index - 1], index, 4)
-          validIndexes.push(array)
+      if (separatedData[arr[0]][arr[1] - 1] === '*') {
+        gears.push({ array: index, gear: [arr[0], arr[1] - 1] })
+        return
+      }
+      if (separatedData[arr[0]][arr[1] + 1] === '*') {
+        gears.push({ array: index, gear: [arr[0], arr[1] + 1] })
+        return
+      }
+
+      if (separatedData[arr[0] + 1] !== undefined) {
+        if (separatedData[arr[0] + 1][arr[1] + 1] === '*') {
+          gears.push({ array: index, gear: [arr[0] + 1, arr[1] + 1] })
+          console.log(arr[0] + 1, arr[1] + 1)
           return
         }
-        if (
-          nextLine[index] &&
-          nextLine[index] !== '.' &&
-          isNaN(Number(nextLine[index]))
-        ) {
-          console.log(nextLine[index], index, 5)
-          validIndexes.push(array)
+        if (separatedData[arr[0] + 1][arr[1]] === '*') {
+          gears.push({ array: index, gear: [arr[0] + 1, arr[1]] })
+          console.log(arr[0] + 1, arr[1])
           return
         }
-        if (
-          nextLine[index + 1] &&
-          nextLine[index + 1] !== '.' &&
-          isNaN(Number(nextLine[index + 1]))
-        ) {
-          console.log(nextLine[index + 1], index, 6)
-          validIndexes.push(array)
-          return
-        }
-        if (
-          lineArray[index - 1] &&
-          lineArray[index - 1] !== '.' &&
-          isNaN(Number(lineArray[index - 1]))
-        ) {
-          console.log(lineArray[index - 1], index, 7)
-          validIndexes.push(array)
-          return
-        }
-        if (
-          lineArray[index + 1] &&
-          lineArray[index + 1] !== '.' &&
-          isNaN(Number(lineArray[index + 1]))
-        ) {
-          console.log(lineArray[index + 1], index, 8)
-          validIndexes.push(array)
+        if (separatedData[arr[0] + 1][arr[1] - 1] === '*') {
+          gears.push({ array: index, gear: [arr[0] + 1, arr[1] - 1] })
+          console.log(arr[0] + 1, arr[1] - 1)
           return
         }
       }
     })
   })
-  const validNumbers = []
-  validIndexes.map((array) => {
-    let combinedNumber = 0
-    for (let i = 0; i < array.length; i++) {
-      combinedNumber += lineArray[array[i]]
-    }
-    validNumbers.push(Number(combinedNumber))
-  })
-  console.log(validNumbers)
-  const numSum = validNumbers.reduce((acc, curr) => (acc += curr), 0)
-  return numSum
-}
-
+    console.log(gears)  
+    let numberPairs = []
+    gears.map((gr) => {
+      // console.log(gr.gear)
+      if (!numberPairs.find((pair) => pair.some((gear) => gear.gear === gr.gear))) {
+      let result = gears.filter((gear) => gear.gear[0] === gr.gear[0])
+      let result2 = result.filter((gear) => gear.gear[1] === gr.gear[1])
+      // console.log(result2)
+      if (result2.length > 1) {
+        numberPairs.push(result2)
+      }
+}})
+   const powers = []
+   numberPairs.map((pair) => {
+    let nums = []
+    for (let i = 0; i < pair.length; i++) {
+      let num = numberArrays[pair[i].array]
+      // console.log(num)
+      let combinedNumber = 0
+      num.map((array) => {
+      combinedNumber += separatedData[array[0]][array[1]]
+        // console.log(array)
+          // console.log(combinedNumber) })
+      })
+      // console.log(combinedNumber)
+    nums.push(Number(combinedNumber))
+    } 
+    // console.log(nums)
+    const power = nums.reduce((acc, cur) => acc * cur, 1)
+    // console.log(power)
+    powers.push(power)
+   })        
+  // console.log(powers)
+  return powers
+  }
+        
+        
+        
+         
+       
+   
 //function to call other function on the data and add it up
 function findAnswer(data) {
-  console.log(data)
   const separatedData = data.split('\n')
   let total = 0
-  separatedData.map((line, index) => {
-    total += getValidNumbers(line, index, separatedData)
-  })
+  let nums = getValidNumbers(separatedData)
+  total = nums.reduce((acc, cur) => acc += cur, 0)
+  // separatedData.map((line, index) => {
+  //   total += getValidNumbers(line, index, separatedData)
+  // })
   return total
 }
 
