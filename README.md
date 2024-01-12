@@ -9,7 +9,7 @@
 7. [ ] Camel Cards
 8. [ ] Haunted Wasteland
 9. [ ] Mirage Maintenance
-10. [ ] Pipe Maze 
+10. [ ] Pipe Maze
 11. [ ] Cosmic Expansion
 12. [ ] Hot Springs
 
