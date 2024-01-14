@@ -30,6 +30,7 @@ function findLocation(seed, maps) {
 function findAnswer(data) {
   const splitData = data.split('\n\n')
   const seeds = splitData[0].split(': ')[1].split(' ')
+  // console.log(seeds)
   const maps = []
   let map = []
   let locations = []
@@ -56,16 +57,35 @@ function findAnswer(data) {
       map = []
     }
   }
-  seeds.forEach((element) => {
-    const location = findLocation(Number(element), maps)
-    locations.push(location)
-  })
+  // Part 2
+  let minLocation = undefined
+  for (let i = 0; i < seeds.length - 1; i += 2) {
+    let range = Number(seeds[i + 1])
+    // console.log('range', range)
 
-  locations.sort((a, b) => a - b)
+    for (let j = 0; j < range - 1; j++) {
+      let seed = Number(seeds[i]) + j
+      // console.log('seed in loop', seed)
+      let location = findLocation(seed, maps)
+      // console.log(location)
+      minLocation =
+        minLocation === undefined
+          ? location
+          : minLocation < location
+          ? minLocation
+          : location
+    }
+  }
+  //Part 1
+  // seeds.forEach((element) => {
+  //   const location = findLocation(Number(element), maps)
+  //   locations.push(location)
+  // })
+  // locations.sort((a, b) => a - b)
   // console.log(maps)
   // console.log('seeds:', seeds)
   // console.log('splitData:', splitData)
-  return locations[0]
+  return minLocation
 }
 
 const data = await readFileAsync('./code/Day5/day5data.txt')

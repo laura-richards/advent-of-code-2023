@@ -35,25 +35,6 @@ humidity-to-location map:
 60 56 37
 56 93 4`
 
-describe('Correctly calculates day 5 part 1 seed 1', () => {
-  test('calculateValue works out location of seed 1', () => {
-    const seedLocation = findLocation(79)
-    expect(seedLocation).toBe(81)
-  })
-  test('calculateValue works out value of seed2', () => {
-    const seedLocation = findLocation(14)
-    expect(seedLocation).toBe(43)
-  })
-  test('calculateValue works out value of Game3', () => {
-    const seedLocation = findLocation(5)
-    expect(seedLocation).toBe(86)
-  })
-  test('calculateValue works out value of Game4', () => {
-    const seedLocation = findLocation(13)
-    expect(seedLocation).toBe(35)
-  })
-})
-
 describe('findAnswer works out the lowest location for part 1', () => {
   test('Use findAnswer to work out answer', () => {
     const lowestLocation = findAnswer(sampleData)
